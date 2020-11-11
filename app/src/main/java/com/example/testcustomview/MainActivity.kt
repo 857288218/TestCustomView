@@ -1,6 +1,9 @@
 package com.example.testcustomview
 
 import android.animation.*
+import android.content.Intent
+import android.graphics.Paint
+import android.graphics.Path
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -93,6 +96,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             //不生效，调用binding.tvScan.clearAnimation()
             animationSet.cancel()
             binding.tvScan.clearAnimation()
+
+            startActivity(Intent(this, TelescopeActivity::class.java))
         }
 
     }
