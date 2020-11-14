@@ -45,7 +45,6 @@ public class TelescopeView extends View {
 //            mBitmapBg = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
 //            Canvas canvasBg = new Canvas(mBitmapBg);
 //            canvasBg.drawBitmap(mBitmap, null, new Rect(0, 0, getWidth(), getHeight()), mPaint);
-
             Matrix matrix = new Matrix();
             matrix.setScale((float) getWidth() / mBitmap.getWidth(), (float) getHeight() / mBitmap.getHeight());
             bitmapShader = new BitmapShader(mBitmap, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
