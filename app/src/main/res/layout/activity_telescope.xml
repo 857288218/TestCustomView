@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="哈哈哈你们都在这里  GVGVgvbnoi"
         android:layout_width="wrap_content"
+        android:id="@+id/shimmer"
         android:layout_height="wrap_content"/>
 
     <com.example.testcustomview.TelescopeView
@@ -22,14 +23,16 @@
         android:layout_width="300dp"
         android:id="@+id/telescope"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="100dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shimmer"
         android:layout_height="300dp"/>
 
-    <com.example.testcustomview.XfermodeView
-        android:layout_width="match_parent"
+    <com.example.testcustomview.TelescopeView2
+        android:layout_width="300dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/telescope"
+        android:layout_marginTop="10dp"
         android:layout_height="300dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
