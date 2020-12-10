@@ -7,6 +7,9 @@
         <variable
             name="onClickListener"
             type="android.view.View.OnClickListener" />
+        <variable
+            name="imgId"
+            type="androidx.lifecycle.LiveData&lt;Integer&gt;" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,6 +83,15 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_height="50dp"/>
+
+        <ImageView
+            app:imgUrl="@{imgId}"
+            android:id="@+id/iv_binding"
+            app:layout_constraintTop_toBottomOf="@id/loading"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
 
         <Button
             android:onClick="@{onClickListener}"

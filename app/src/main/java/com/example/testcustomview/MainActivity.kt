@@ -11,6 +11,7 @@ import android.view.animation.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import com.example.testcustomview.databinding.ActivityMainBinding
 import kotlin.math.cos
 import kotlin.math.sin
@@ -22,12 +23,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var animatorSet: AnimatorSet? = null
     private var animationSet: AnimationSet = AnimationSet(true)
     private var isMenuOpen = false
+    private val imgIdLive = MutableLiveData<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.onClickListener = this
-
+        binding.imgId = imgIdLive
+        binding.lifecycleOwner = this
         binding.button.setOnClickListener {
 //            animationSet = AnimationSet(true)
 //            animationSet.setAnimationListener(object : Animation.AnimationListener {
@@ -87,9 +90,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         binding.btn.setOnClickListener {
+            imgIdLive.value = R.drawable.ic_work_mudan
             doValueAnimation()
         }
         binding.tvTranslation.setOnClickListener {
+            imgIdLive.value = R.drawable.ic_work_nangua
             Toast.makeText(this, "click me", Toast.LENGTH_SHORT).show()
             valueAnimator?.removeAllUpdateListeners()
             animatorSet?.cancel()

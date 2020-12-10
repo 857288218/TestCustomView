@@ -64,7 +64,7 @@ public class TelescopeView extends View {
                 mDx = (int) event.getX();
                 mDy = (int) event.getY();
                 invalidate();
-                return true;
+                return true;        //down事件消费后后续事件才能传递过来，如果down事件不消费后续事件不会传递过来
             case MotionEvent.ACTION_MOVE:
                 mDx = (int) event.getX();
                 mDy = (int) event.getY();

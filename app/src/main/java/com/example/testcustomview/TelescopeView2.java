@@ -9,6 +9,8 @@ import android.graphics.Matrix;
 import android.graphics.Shader;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -49,7 +51,7 @@ public class TelescopeView2 extends View {
             Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_work_nangua);
             bitmap = Bitmap.createScaledBitmap(bmp, getWidth(), getHeight(), false);
 
-            BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * FACTOR, bitmap.getHeight() * FACTOR, false),
+            BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * FACTOR, bitmap.getHeight() * FACTOR, true),
                     Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
             shapeDrawable = new ShapeDrawable(new OvalShape());
             shapeDrawable.getPaint().setShader(shader);
