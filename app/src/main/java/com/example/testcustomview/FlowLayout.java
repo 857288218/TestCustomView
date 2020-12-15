@@ -12,6 +12,21 @@ public class FlowLayout extends ViewGroup {
     }
 
     @Override
+    protected LayoutParams generateLayoutParams(LayoutParams p) {
+        return new MarginLayoutParams(p);
+    }
+
+    @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new MarginLayoutParams(getContext(), attrs);
+    }
+
+    @Override
+    protected LayoutParams generateDefaultLayoutParams() {
+        return new MarginLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+    }
+
+    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int measureWidth = MeasureSpec.getSize(widthMeasureSpec);
@@ -23,7 +38,7 @@ public class FlowLayout extends ViewGroup {
         for (int i=0; i<getChildCount(); i++) {
             View childView = getChildAt(i);
             measureChild(childView, widthMeasureSpec, heightMeasureSpec);
-            MarginLayoutParams lp = (MarginLayoutParams) getLayoutParams();
+            MarginLayoutParams lp = (MarginLayoutParams) childView.getLayoutParams();
             int childWidth = childView.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
             int childHeight = childView.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
 
@@ -52,7 +67,7 @@ public class FlowLayout extends ViewGroup {
         int top = 0, left = 0;
         for (int i=0; i<getChildCount(); i++) {
             View child = getChildAt(i);
-            MarginLayoutParams lp = (MarginLayoutParams) getLayoutParams();
+            MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
             int childWidth = child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
             int childHeight = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
 
