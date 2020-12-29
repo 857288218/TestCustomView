@@ -1,8 +1,10 @@
 package com.example.testcustomview
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 
 class ThreeActivity : AppCompatActivity() {
@@ -25,6 +27,23 @@ class ThreeActivity : AppCompatActivity() {
         options.inSampleSize = calSampleSize(options, 160, 160)
         val bitmapSample = BitmapFactory.decodeResource(resources, R.drawable.ic_work_nangua, options)
         findViewById<ImageView>(R.id.iv_sample).setImageBitmap(bitmapSample)
+
+        //见《Android自定义控件开发入门与实战》394页
+        val densityBitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_work_nangua)
+        findViewById<ImageView>(R.id.img1).setImageBitmap(densityBitmap)
+        Log.d("rjq", "density:" + densityBitmap.density + " width:"+densityBitmap.width+" height:"+densityBitmap.height)
+
+        densityBitmap.density = densityBitmap.density * 2
+        findViewById<ImageView>(R.id.img2).setImageBitmap(densityBitmap)
+        Log.d("rjq", "density:" + densityBitmap.density + " width:"+densityBitmap.width+" height:"+densityBitmap.height)
+
+        //见《Android自定义控件开发入门与实战》375页
+        val optionsDensity = BitmapFactory.Options()
+        optionsDensity.inDensity = 400
+        optionsDensity.inTargetDensity = 400
+        val bitmapDensity = BitmapFactory.decodeResource(resources, R.drawable.ic_work_nangua, optionsDensity)
+        findViewById<ImageView>(R.id.iv_density).setImageBitmap(bitmapDensity)
+        Log.d("rjq", " width:"+bitmapDensity.width+" height:"+bitmapDensity.height)
     }
 
     fun calSampleSize(options: BitmapFactory.Options, dstWidth: Int, dstHeight: Int): Int {
