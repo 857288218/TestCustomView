@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.animation.*
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -31,6 +32,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.onClickListener = this
         binding.imgId = imgIdLive
         binding.lifecycleOwner = this
+        //向flowLayout中动态添加view
+        val view = View(this)
+        val viewLayoutParams1 = LinearLayout.LayoutParams(100, 30)
+        view.layoutParams = viewLayoutParams1
+        view.setBackgroundColor(resources.getColor(R.color.black))
+        binding.flowLayout.addView(view)
+
         binding.button.setOnClickListener {
 //            animationSet = AnimationSet(true)
 //            animationSet.setAnimationListener(object : Animation.AnimationListener {
