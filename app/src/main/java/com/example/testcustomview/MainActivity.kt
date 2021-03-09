@@ -5,15 +5,23 @@ import android.content.Intent
 import android.graphics.Paint
 import android.graphics.Path
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.animation.*
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.postDelayed
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import com.example.testcustomview.databinding.ActivityMainBinding
+import event.StickyStringEvent
+import event.StringEvent
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -28,6 +36,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        EventBus.getDefault().register(this)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.onClickListener = this
         binding.imgId = imgIdLive
@@ -38,7 +47,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         view.layoutParams = viewLayoutParams1
         view.setBackgroundColor(resources.getColor(R.color.black))
         binding.flowLayout.addView(view)
-
+        Handler(Looper.getMainLooper()).postDelayed({EventBus.getDefault().register(this)}, 3000)
         binding.button.setOnClickListener {
 //            animationSet = AnimationSet(true)
 //            animationSet.setAnimationListener(object : Animation.AnimationListener {
@@ -100,6 +109,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.btn.setOnClickListener {
             imgIdLive.value = R.drawable.ic_work_mudan
             doValueAnimation()
+            EventBus.getDefault().post(StringEvent("event bus test"))
         }
         binding.tvTranslation.setOnClickListener {
             imgIdLive.value = R.drawable.ic_work_nangua
@@ -206,6 +216,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
+        EventBus.getDefault().unregister(this)
         valueAnimator?.cancel()
+    }
+
+    @Subscribe
+    fun onStringEvent(event: StringEvent) {
+        Toast.makeText(this, event.msg, Toast.LENGTH_SHORT).show()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onStickyStringEvent(event: StickyStringEvent) {
+        Toast.makeText(this, "sticky: ${event.msg}", Toast.LENGTH_SHORT).show()
+        val stickyStringEvent = EventBus.getDefault().getStickyEvent(StickyStringEvent::class.java)
+        // 判断此粘性事件是否存在
+        if (stickyStringEvent != null) {
+            EventBus.getDefault().removeStickyEvent(stickyStringEvent)
+        }
     }
 }
