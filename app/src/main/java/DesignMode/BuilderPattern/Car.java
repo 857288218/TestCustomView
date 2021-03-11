@@ -1,4 +1,4 @@
-package BuilderPattern;
+package DesignMode.BuilderPattern;
 
 /**
  * 建造者模式：为了分离对象的属性与创建过程

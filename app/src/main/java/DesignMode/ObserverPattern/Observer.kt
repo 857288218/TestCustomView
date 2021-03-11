@@ -1,4 +1,4 @@
-package ObserverPattern
+package DesignMode.ObserverPattern
 
 abstract class Observer {
 

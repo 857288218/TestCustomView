@@ -1,4 +1,4 @@
-package ObserverPattern
+package DesignMode.ObserverPattern
 
 //观察者模式
 class Subject {
