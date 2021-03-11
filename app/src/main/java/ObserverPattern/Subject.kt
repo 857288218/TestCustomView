@@ -1,5 +1,6 @@
 package ObserverPattern
 
+//观察者模式
 class Subject {
 
     private var state: Int = Int.MAX_VALUE
