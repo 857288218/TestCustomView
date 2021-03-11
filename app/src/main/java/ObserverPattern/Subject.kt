@@ -3,7 +3,11 @@ package ObserverPattern
 //观察者模式
 class Subject {
 
-    private var state: Int = Int.MAX_VALUE
+    var state: Int = Int.MAX_VALUE
+        set(value) {
+            field = value
+            notifyAllObserver()
+        }
 
     private val observers = ArrayList<Observer>()
 
@@ -13,13 +17,6 @@ class Subject {
 
     fun removeObserver(observer: Observer) {
         observers.remove(observer)
-    }
-
-    fun getState(): Int = state
-
-    fun setState(state: Int) {
-        this.state = state
-        notifyAllObserver()
     }
 
     fun notifyAllObserver() {
