@@ -37,6 +37,7 @@ public class TelescopeView2 extends View {
     public boolean onTouchEvent(MotionEvent event) {
         final int x = (int) event.getX();
         final int y = (int) event.getY();
+        //设置Shader绘制的起始位置
         matrix.setTranslate(RADIUS - FACTOR * x, RADIUS - FACTOR * y);
         shapeDrawable.getPaint().getShader().setLocalMatrix(matrix);
         shapeDrawable.setBounds(x - RADIUS, y - RADIUS, x + RADIUS, y + RADIUS);

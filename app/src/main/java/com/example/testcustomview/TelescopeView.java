@@ -41,7 +41,7 @@ public class TelescopeView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (mBitmapBg == null) {
-            //得到宽高和控件宽高相等的bitmap
+            //得到和控件宽高相等的bitmap
 //            mBitmapBg = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
 //            Canvas canvasBg = new Canvas(mBitmapBg);
 //            canvasBg.drawBitmap(mBitmap, null, new Rect(0, 0, getWidth(), getHeight()), mPaint);
