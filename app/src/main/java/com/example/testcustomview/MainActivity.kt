@@ -1,19 +1,18 @@
 package com.example.testcustomview
 
+import DesignMode.BuilderPattern.Car
 import android.animation.*
 import android.content.Intent
-import android.graphics.Paint
-import android.graphics.Path
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.view.animation.*
+import android.view.animation.AnimationSet
+import android.view.animation.BounceInterpolator
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.postDelayed
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import com.example.testcustomview.databinding.ActivityMainBinding
@@ -22,6 +21,9 @@ import event.StringEvent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import test.Child
+import test.Parent
+import javax.security.auth.Subject
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -123,8 +125,37 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             startActivity(Intent(this, TelescopeActivity::class.java))
         }
 
+        Thread {
+            x()
+        }.start()
+        Thread {
+            y()
+        }.start()
+
+        val child = Child<Int>()
+        val parent = Parent<Int>()
+        child.func(1)   // Child#func(Object);
+        parent.func(1)  // Parent#func(Object);
+    }
+    private val monitor = Object()
+    private var k = 0
+    private val monitor1 = Object()
+    private val monitor2 = Object()
+
+    fun x() {
+        synchronized(monitor) {
+            monitor.wait()
+            k = 1
+        }
     }
 
+    fun y() {
+        synchronized(monitor) {
+            monitor.notify()
+            Thread.sleep(500)
+            Log.d("rjqmonitor", "$k")
+        }
+    }
     private fun doValueAnimation() {
 //        val valueAnimation = ValueAnimator.ofObject(CharEvaluator(), Character('A'), Character('Z'))
 //        valueAnimation.duration = 10000
