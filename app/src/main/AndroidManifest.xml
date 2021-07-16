@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestCustomView">
-        <activity android:name=".ThreeActivity"></activity>
+        <activity android:name=".LongTextRecyclerViewActivity"></activity>
+        <activity android:name=".ThreeActivity" />
         <activity android:name=".TelescopeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

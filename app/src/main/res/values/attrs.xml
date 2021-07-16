@@ -6,4 +6,8 @@
 
     </declare-styleable>
 
+    <declare-styleable name="SentenceTextView">
+        <attr name="highlightSentenceBgColor" format="reference|color" />
+    </declare-styleable>
+
 </resources>

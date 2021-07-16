@@ -136,6 +136,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val parent = Parent<Int>()
         child.func(1)   // Child#func(Object);
         parent.func(1)  // Parent#func(Object);
+
+        binding.clipView.setOnClickListener {
+            startActivity(Intent(this@MainActivity, LongTextRecyclerViewActivity::class.java))
+        }
     }
     private val monitor = Object()
     private var k = 0
