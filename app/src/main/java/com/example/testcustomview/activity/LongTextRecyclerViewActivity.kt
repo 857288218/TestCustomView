@@ -1,5 +1,6 @@
-package com.example.testcustomview
+package com.example.testcustomview.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testcustomview.R
+import com.example.testcustomview.Sentence
+import com.example.testcustomview.SentenceTextView
 import com.example.testcustomview.databinding.ActivityLongTextRecyclerViewBinding
 import com.example.testcustomview.databinding.ItemImageBinding
 import com.example.testcustomview.databinding.ItemSentenceBinding
@@ -104,6 +108,10 @@ class LongTextRecyclerViewActivity : AppCompatActivity() {
                         }
                     }
                 })
+            } else if (holder is ImageViewHolder) {
+                holder.itemView.setOnClickListener {
+                    it.context.startActivity(Intent(it.context, BindingAdapterPositionActivity::class.java))
+                }
             }
         }
 

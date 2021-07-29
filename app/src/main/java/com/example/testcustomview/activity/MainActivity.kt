@@ -1,6 +1,5 @@
-package com.example.testcustomview
+package com.example.testcustomview.activity
 
-import DesignMode.BuilderPattern.Car
 import android.animation.*
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +14,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
+import com.example.testcustomview.CharEvaluator
+import com.example.testcustomview.R
+import com.example.testcustomview.TelescopeActivity
 import com.example.testcustomview.databinding.ActivityMainBinding
 import event.StickyStringEvent
 import event.StringEvent
@@ -23,7 +25,6 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import test.Child
 import test.Parent
-import javax.security.auth.Subject
 import kotlin.math.cos
 import kotlin.math.sin
 
