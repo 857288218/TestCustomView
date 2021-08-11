@@ -26,7 +26,7 @@ fun View.method2(attribute_name1: String?, attribute_name2: Int?, attribute_name
 
 }
 
-// 为 View 新增 expand 扩展方法
+// 增大View点击区域
 fun View.expand(dx: Int, dy: Int) {
     // 将刚才定义代理类放到方法内部，调用方不需要了解这些细节
     class MultiTouchDelegate(bound: Rect? = null, delegateView: View) : TouchDelegate(bound, delegateView) {
@@ -75,3 +75,35 @@ fun View.expand(dx: Int, dy: Int) {
         (parentView.touchDelegate as? MultiTouchDelegate)?.delegateViewMap?.put(this, rect)
     }
 }
+
+/**
+ * 获取view当前占据屏幕的百分比
+ */
+//private int getVisibilityPercents(View currentView) {
+//    int percents = 100;
+//    Rect rect = new Rect();
+//    //防止出现视频已不在可见得范围之内仍然返回100（完全可见）
+//    boolean isVisible = currentView.getLocalVisibleRect(rect);
+//    if (isVisible) { //可见时做百分比的计算
+//        int height = currentView.getHeight();
+//        if(viewIsPartiallyHiddenTop(rect)){
+//            // view is partially hidden behind the top edge
+//            percents = (height - rect.top) * 100 / height;
+//        } else if(viewIsPartiallyHiddenBottom(rect, height)){
+//            percents = rect.bottom * 100 / height;
+//        }
+//    }else { //View已经不可见
+//        percents = 0;
+//    }
+//    return percents;
+//}
+//
+////view底部部分不可见
+//private boolean viewIsPartiallyHiddenBottom(Rect rect, int height) {
+//    return rect.bottom > 0 && rect.bottom < height;
+//}
+//
+////view顶部部分不可见
+//private boolean viewIsPartiallyHiddenTop(Rect rect) {
+//    return rect.top > 0;
+//}

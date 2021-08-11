@@ -11,7 +11,7 @@
         android:theme="@style/Theme.TestCustomView">
         <activity android:name=".activity.BindingAdapterPositionActivity"></activity>
         <activity android:name=".activity.LongTextRecyclerViewActivity" />
-        <activity android:name=".ThreeActivity" />
+        <activity android:name=".activity.ThreeActivity" />
         <activity android:name=".TelescopeActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>

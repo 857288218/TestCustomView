@@ -1,11 +1,11 @@
-package com.example.testcustomview
+package com.example.testcustomview.activity
 
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import com.example.testcustomview.R
 
 class ThreeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
