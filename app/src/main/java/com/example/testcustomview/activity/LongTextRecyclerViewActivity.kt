@@ -28,7 +28,7 @@ class LongTextRecyclerViewActivity : AppCompatActivity() {
         binding.recyclerView.adapter = Adapter()
         Handler(Looper.getMainLooper()).postDelayed({
 //            recyclerView?.scrollBy(0, 500)
-            (binding.recyclerView.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(0, -300)
+//            (binding.recyclerView.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(0, -300)
         }, 1000)
     }
 
@@ -111,6 +111,10 @@ class LongTextRecyclerViewActivity : AppCompatActivity() {
             } else if (holder is ImageViewHolder) {
                 holder.itemView.setOnClickListener {
                     it.context.startActivity(Intent(it.context, BindingAdapterPositionActivity::class.java))
+                }
+            } else if (holder is TextViewHolder) {
+                holder.itemView.setOnClickListener {
+                    it.context.startActivity(Intent(it.context, ViewStubActivity::class.java))
                 }
             }
         }

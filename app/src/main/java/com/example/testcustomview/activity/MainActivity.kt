@@ -2,6 +2,7 @@ package com.example.testcustomview.activity
 
 import android.animation.*
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,7 +17,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import com.example.testcustomview.CharEvaluator
 import com.example.testcustomview.R
-import com.example.testcustomview.TelescopeActivity
 import com.example.testcustomview.databinding.ActivityMainBinding
 import event.StickyStringEvent
 import event.StringEvent
@@ -141,6 +141,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.clipView.setOnClickListener {
             startActivity(Intent(this@MainActivity, LongTextRecyclerViewActivity::class.java))
         }
+
+        val uri = Uri.parse("douban://douban.com/group/:id/join")
+        Log.d("rjquri", uri.pathSegments.toString())
     }
     private val monitor = Object()
     private var k = 0

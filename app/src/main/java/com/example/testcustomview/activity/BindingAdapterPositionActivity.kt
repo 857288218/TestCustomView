@@ -24,7 +24,7 @@ class BindingAdapterPositionActivity : AppCompatActivity() {
             adapter?.removeItem(2)
         }
         findViewById<TextView>(R.id.tv_insert).setOnClickListener {
-            adapter?.insertItem(1, "${(adapter?.items?.size ?: 0) + 1}")
+            adapter?.insertItem(1, "${(adapter?.items?.size ?: 0)}")
         }
         recyclerView = findViewById(R.id.recyclerView)
         adapter = Adapter()
@@ -60,11 +60,15 @@ class BindingAdapterPositionActivity : AppCompatActivity() {
         fun removeItem(position: Int) {
             this.items.removeAt(position)
             notifyItemRemoved(position)
+            // remove item不能直接使用notifyItemRangeChanged，否则会崩溃java.lang.IndexOutOfBoundsException: Inconsistency detected.可以先notifyItemRemoved再notifyItemRangeChanged
+//            notifyItemRangeChanged(position, items.size - position)
         }
 
         fun insertItem(position: Int, string: String) {
             this.items.add(position, string)
             notifyItemInserted(position)
+            // insert可以直接使用notifyItemRangeChanged刷新
+//            notifyItemRangeChanged(position, itemCount - position)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {

@@ -1,10 +1,10 @@
-package com.example.testcustomview
+package com.example.testcustomview.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import com.example.testcustomview.activity.ThreeActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.example.testcustomview.R
 import event.StickyStringEvent
 import org.greenrobot.eventbus.EventBus
 
