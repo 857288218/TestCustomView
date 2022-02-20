@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.view.animation.AnimationSet
 import android.view.animation.BounceInterpolator
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +41,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        EventBus.getDefault().register(this)
+        Looper.getMainLooper().setMessageLogging { x ->
+            if (!x.contains("Choreographer\$FrameHandler"))
+                Log.d("rjqLooper", x)
+        }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.onClickListener = this
         binding.imgId = imgIdLive
@@ -50,7 +55,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         view.layoutParams = viewLayoutParams1
         view.setBackgroundColor(resources.getColor(R.color.black))
         binding.flowLayout.addView(view)
-        Handler(Looper.getMainLooper()).postDelayed({EventBus.getDefault().register(this)}, 3000)
+        Handler(Looper.getMainLooper()).postDelayed({ EventBus.getDefault().register(this) }, 3000)
         binding.button.setOnClickListener {
 //            animationSet = AnimationSet(true)
 //            animationSet.setAnimationListener(object : Animation.AnimationListener {
@@ -140,10 +145,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.clipView.setOnClickListener {
             startActivity(Intent(this@MainActivity, LongTextRecyclerViewActivity::class.java))
+            Handler(Looper.getMainLooper()).postDelayed({
+                startActivity(Intent(this, LongTextRecyclerViewActivity::class.java))
+            }, 3000)
         }
 
         val uri = Uri.parse("douban://douban.com/group/:id/join")
         Log.d("rjquri", uri.pathSegments.toString())
+
+        findViewById<Button>(R.id.test_btn).setOnClickListener {
+            Toast.makeText(this, "test btn", Toast.LENGTH_SHORT).show()
+        }
+
+        val num = 100
+        val str: String? = num as? String
+        Log.d("rjqas", str + "")
     }
     private val monitor = Object()
     private var k = 0
@@ -198,10 +214,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val translationX = - (radius * sin(degree)).toInt()
         val translationY = - (radius * cos(degree)).toInt()
         val animatorSet = AnimatorSet()
-        animatorSet.playTogether(ObjectAnimator.ofFloat(view, "translationX", 0F, translationX.toFloat()),
+        animatorSet.playTogether(
+            ObjectAnimator.ofFloat(view, "translationX", 0F, translationX.toFloat()),
             ObjectAnimator.ofFloat(view, "translationY", 0F, translationY.toFloat()),
             ObjectAnimator.ofFloat(view, "scaleX", 0F, 1F),
-            ObjectAnimator.ofFloat(view, "scaleY", 0f, 1F))
+            ObjectAnimator.ofFloat(view, "scaleY", 0f, 1F)
+        )
         animatorSet.duration = 500
         animatorSet.start()
     }
@@ -214,11 +232,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val translationX = -radius * sin(degree)
         val translationY = -radius * cos(degree)
         //等同于上面animatorSet.playTogether
-        val animator = ObjectAnimator.ofPropertyValuesHolder(view,
+        val animator = ObjectAnimator.ofPropertyValuesHolder(
+            view,
             PropertyValuesHolder.ofFloat("translationX", translationX.toFloat(), 0F),
             PropertyValuesHolder.ofFloat("translationY", translationY.toFloat(), 0F),
             PropertyValuesHolder.ofFloat("scaleX", 1F, 0F),
-            PropertyValuesHolder.ofFloat("scaleY", 1F, 0F))
+            PropertyValuesHolder.ofFloat("scaleY", 1F, 0F)
+        )
         animator.duration = 500
         animator.start()
     }

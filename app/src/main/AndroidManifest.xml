@@ -11,7 +11,8 @@
         android:theme="@style/Theme.TestCustomView">
         <activity android:name=".activity.ViewStubActivity"></activity>
         <activity android:name=".activity.BindingAdapterPositionActivity" />
-        <activity android:name=".activity.LongTextRecyclerViewActivity" />
+        <activity android:name=".activity.LongTextRecyclerViewActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activity.ThreeActivity" />
         <activity android:name=".activity.TelescopeActivity"
             android:process=":rjqtest"/>

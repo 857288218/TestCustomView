@@ -110,7 +110,9 @@ class LongTextRecyclerViewActivity : AppCompatActivity() {
                 })
             } else if (holder is ImageViewHolder) {
                 holder.itemView.setOnClickListener {
-                    it.context.startActivity(Intent(it.context, BindingAdapterPositionActivity::class.java))
+                    val intent = Intent(it.context, BindingAdapterPositionActivity::class.java)
+                    intent.putExtra("large_data", ByteArray(512 * 1024))
+                    it.context.startActivity(intent)
                 }
             } else if (holder is TextViewHolder) {
                 holder.itemView.setOnClickListener {
@@ -122,5 +124,23 @@ class LongTextRecyclerViewActivity : AppCompatActivity() {
         class TextViewHolder(val binding: ItemTextBinding) : RecyclerView.ViewHolder(binding.root)
         class ImageViewHolder(val binding: ItemImageBinding) : RecyclerView.ViewHolder(binding.root)
         class SentenceViewHolder(val binding: ItemSentenceBinding) : RecyclerView.ViewHolder(binding.root)
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        finish()
+        startActivity(Intent(this, LongTextRecyclerViewActivity::class.java))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

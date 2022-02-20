@@ -1,4 +1,4 @@
-package com.example.testcustomview
+package com.example.testcustomview.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,5 +19,9 @@ class TestFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
     }
 }
