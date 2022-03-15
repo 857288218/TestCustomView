@@ -9,6 +9,11 @@ import androidx.fragment.app.setFragmentResultListener
 
 class TestFragment : Fragment() {
 
+    // 编译成java生成一个static final的class，在TestFragment里有该类的常量static final Companion Companion
+    companion object {
+        fun createFragment() = TestFragment()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setFragmentResultListener("result_key") { resultKey, bundle ->
 

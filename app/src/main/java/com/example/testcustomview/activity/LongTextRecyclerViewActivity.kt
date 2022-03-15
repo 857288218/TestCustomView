@@ -1,5 +1,6 @@
 package com.example.testcustomview.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -23,8 +24,9 @@ class LongTextRecyclerViewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLongTextRecyclerViewBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        leakActivity = this
         binding = DataBindingUtil.setContentView(this, R.layout.activity_long_text_recycler_view)
-
+        intent.getIntExtra("a", 0)
         binding.recyclerView.adapter = Adapter()
         Handler(Looper.getMainLooper()).postDelayed({
 //            recyclerView?.scrollBy(0, 500)
@@ -32,7 +34,9 @@ class LongTextRecyclerViewActivity : AppCompatActivity() {
         }, 1000)
     }
 
-
+    companion object {
+        var leakActivity: Activity? = null
+    }
     class Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         private var curItemPos = -1
@@ -138,6 +142,10 @@ class LongTextRecyclerViewActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         finish()
         startActivity(Intent(this, LongTextRecyclerViewActivity::class.java))
+    }
+
+    override fun onStop() {
+        super.onStop()
     }
 
     override fun onDestroy() {

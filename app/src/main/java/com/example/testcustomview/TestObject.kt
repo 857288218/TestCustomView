@@ -18,6 +18,7 @@ object TestObject {
     // private static String varRjqPrivate = "varRjqPrivate"
     private var varRjqPrivate = "varRjqPrivate"
 
+    // public final void testFun()
     fun testFun() {
 
     }

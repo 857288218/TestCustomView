@@ -2,7 +2,9 @@ package test;
 
 import android.util.Log;
 
-public class Child<T extends Number> extends Parent<T> {
+import java.io.Serializable;
+
+public class Child<T extends Number> extends Parent<T> implements Serializable {
 
     @Override
     public void func(T t) {

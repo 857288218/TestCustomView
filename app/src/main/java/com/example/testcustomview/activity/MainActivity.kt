@@ -1,6 +1,7 @@
 package com.example.testcustomview.activity
 
 import android.animation.*
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -19,6 +20,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.testcustomview.CharEvaluator
 import com.example.testcustomview.R
 import com.example.testcustomview.databinding.ActivityMainBinding
+import com.squareup.leakcanary.LeakCanary
 import event.StickyStringEvent
 import event.StringEvent
 import org.greenrobot.eventbus.EventBus
@@ -40,6 +42,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        LeakCanary.install(application)
+        // 一直向主线程发消息导致主线程无法执行IdleHandlers会造成内存泄漏，详见ActivityThread#handleResumeActivity;
+        // 如果用2.0以下LeakCanary该情况下无法检测到内存泄漏 因为该版本内存泄漏检测在IdleHandler中完成
+        val mainHandler = Handler(Looper.getMainLooper())
+        val runnable = object : Runnable {
+            override fun run() {
+                mainHandler.post(this)
+            }
+        }
+//        mainHandler.post(runnable)
+        Looper.myQueue().addIdleHandler {
+            Log.d("rjqadle", "my idlehandler run")
+            false
+        }
+
 //        EventBus.getDefault().register(this)
         Looper.getMainLooper().setMessageLogging { x ->
             if (!x.contains("Choreographer\$FrameHandler"))
@@ -144,10 +161,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         parent.func(1)  // Parent#func(Object);
 
         binding.clipView.setOnClickListener {
-            startActivity(Intent(this@MainActivity, LongTextRecyclerViewActivity::class.java))
-            Handler(Looper.getMainLooper()).postDelayed({
-                startActivity(Intent(this, LongTextRecyclerViewActivity::class.java))
-            }, 3000)
+            val intent = Intent(this@MainActivity, LongTextRecyclerViewActivity::class.java)
+            intent.putExtra("a", 11)
+            intent.putExtra("b", Child<Int>())
+            startActivity(intent)
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                startActivity(intent)
+//            }, 3000)
         }
 
         val uri = Uri.parse("douban://douban.com/group/:id/join")
@@ -273,10 +293,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         doAnimationClose(binding.item5, 4, 300)
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
         valueAnimator?.cancel()
+    }
+
+    override fun onStop() {
+        super.onStop()
     }
 
     @Subscribe

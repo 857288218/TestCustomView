@@ -49,4 +49,8 @@ class RectPointView : View {
         }
         canvas?.drawRect(mRect, mPaint)
     }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+    }
 }
