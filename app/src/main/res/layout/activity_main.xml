@@ -211,8 +211,8 @@
                 android:id="@+id/test_btn"
                 android:text="@string/app_name"
                 android:layout_gravity="center"
-                android:layout_width="50dp"
-                android:layout_height="20dp"/>
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
 
         </com.example.testcustomview.TextViewGroup>
 

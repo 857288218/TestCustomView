@@ -42,7 +42,8 @@ public class TestBtn extends AppCompatButton {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Log.d("rjqtestevent", "TestBtn onTouchEvent ACTION_DOWN");
-                return true;
+//                return true;
+                break;
             case MotionEvent.ACTION_MOVE:
                 Log.d("rjqtestevent", "TestBtn onTouchEvent ACTION_MOVE");
 //                return true;
@@ -56,6 +57,6 @@ public class TestBtn extends AppCompatButton {
 //                return true;
                 break;
         }
-        return false;
+        return super.onTouchEvent(event);
     }
 }

@@ -1,7 +1,6 @@
 package com.example.testcustomview.activity
 
 import android.animation.*
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -180,6 +179,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val num = 100
         val str: String? = num as? String
         Log.d("rjqas", str + "")
+        binding.testBtn.setOnClickListener {
+            Toast.makeText(this, "testbtn click", Toast.LENGTH_SHORT).show()
+            Log.d("rjqtestevent", "TestBtn onClickListener")
+        }
+        binding.testBtn.setOnLongClickListener {
+            Toast.makeText(this, "testbtn longclick", Toast.LENGTH_SHORT).show()
+            Log.d("rjqtestevent", "TestBtn OnLongClickListener")
+            false
+        }
     }
     private val monitor = Object()
     private var k = 0
