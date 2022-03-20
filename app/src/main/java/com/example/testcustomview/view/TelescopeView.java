@@ -1,4 +1,4 @@
-package com.example.testcustomview;
+package com.example.testcustomview.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,6 +14,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+
+import com.example.testcustomview.R;
 
 //望远镜效果
 public class TelescopeView extends View {

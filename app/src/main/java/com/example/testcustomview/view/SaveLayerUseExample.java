@@ -1,4 +1,4 @@
-package com.example.testcustomview;
+package com.example.testcustomview.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,6 +11,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+
+import com.example.testcustomview.R;
 
 public class SaveLayerUseExample extends View {
 

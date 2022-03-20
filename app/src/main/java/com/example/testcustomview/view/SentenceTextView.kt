@@ -1,4 +1,4 @@
-package com.example.testcustomview
+package com.example.testcustomview.view
 
 import android.content.Context
 import android.graphics.Color
@@ -12,6 +12,8 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
+import com.example.testcustomview.R
+import com.example.testcustomview.Sentence
 import java.util.*
 
 class SentenceTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr) {

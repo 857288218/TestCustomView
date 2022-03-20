@@ -1,4 +1,4 @@
-package com.example.testcustomview;
+package com.example.testcustomview.view;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
@@ -9,6 +9,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
+
+import com.example.testcustomview.R;
 
 public class LoadingImageView extends AppCompatImageView {
 

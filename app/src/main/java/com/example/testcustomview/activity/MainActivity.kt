@@ -16,7 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
-import com.example.testcustomview.CharEvaluator
+import com.example.testcustomview.view.CharEvaluator
 import com.example.testcustomview.R
 import com.example.testcustomview.databinding.ActivityMainBinding
 import com.squareup.leakcanary.LeakCanary

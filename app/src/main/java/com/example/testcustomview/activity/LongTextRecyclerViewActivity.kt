@@ -9,11 +9,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testcustomview.R
 import com.example.testcustomview.Sentence
-import com.example.testcustomview.SentenceTextView
+import com.example.testcustomview.view.SentenceTextView
 import com.example.testcustomview.databinding.ActivityLongTextRecyclerViewBinding
 import com.example.testcustomview.databinding.ItemImageBinding
 import com.example.testcustomview.databinding.ItemSentenceBinding

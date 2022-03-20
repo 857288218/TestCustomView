@@ -1,4 +1,4 @@
-package com.example.testcustomview
+package com.example.testcustomview.view
 
 import android.content.Context
 import android.graphics.Canvas
