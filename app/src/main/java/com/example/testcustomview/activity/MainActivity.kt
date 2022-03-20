@@ -18,6 +18,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import com.example.testcustomview.view.CharEvaluator
 import com.example.testcustomview.R
+import com.example.testcustomview.TestObject.testReified
 import com.example.testcustomview.databinding.ActivityMainBinding
 import com.squareup.leakcanary.LeakCanary
 import event.StickyStringEvent
@@ -188,6 +189,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Log.d("rjqtestevent", "TestBtn OnLongClickListener")
             false
         }
+        testReified<LongTextRecyclerViewActivity>()
     }
     private val monitor = Object()
     private var k = 0

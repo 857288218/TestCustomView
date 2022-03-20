@@ -1,5 +1,8 @@
 package com.example.testcustomview
 
+import android.app.Activity
+import android.content.Intent
+
 object TestObject {
     // public static final TestObject INSTANCE = new TestObject();
 
@@ -21,5 +24,13 @@ object TestObject {
     // public final void testFun()
     fun testFun() {
 
+    }
+
+    inline fun<reified T : Activity> Activity.testReified() {
+        startActivity(Intent(this, T::class.java))
+    }
+
+    inline fun<T : Activity> Activity.testReified(clazz: Class<T>) {
+        startActivity(Intent(this, clazz))
     }
 }
