@@ -2,11 +2,14 @@ package com.example.testcustomview.activity
 
 import android.animation.*
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AnimationSet
 import android.view.animation.BounceInterpolator
@@ -16,18 +19,25 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
-import com.example.testcustomview.view.CharEvaluator
+import androidx.lifecycle.Observer
 import com.example.testcustomview.R
-import com.example.testcustomview.TestObject.testReified
 import com.example.testcustomview.databinding.ActivityMainBinding
+import com.example.testcustomview.view.CharEvaluator
 import com.squareup.leakcanary.LeakCanary
 import event.StickyStringEvent
 import event.StringEvent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import test.Child
-import test.Parent
+import bean.Child
+import bean.Parent
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.*
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -57,9 +67,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             false
         }
 
-//        EventBus.getDefault().register(this)
+        EventBus.getDefault().register(this)
         Looper.getMainLooper().setMessageLogging { x ->
-            if (!x.contains("Choreographer\$FrameHandler"))
                 Log.d("rjqLooper", x)
         }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -72,7 +81,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         view.layoutParams = viewLayoutParams1
         view.setBackgroundColor(resources.getColor(R.color.black))
         binding.flowLayout.addView(view)
-        Handler(Looper.getMainLooper()).postDelayed({ EventBus.getDefault().register(this) }, 3000)
+//        Handler(Looper.getMainLooper()).postDelayed({ EventBus.getDefault().register(this) }, 3000)
         binding.button.setOnClickListener {
 //            animationSet = AnimationSet(true)
 //            animationSet.setAnimationListener(object : Animation.AnimationListener {
@@ -180,17 +189,65 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val num = 100
         val str: String? = num as? String
         Log.d("rjqas", str + "")
-        binding.testBtn.setOnClickListener {
-            Toast.makeText(this, "testbtn click", Toast.LENGTH_SHORT).show()
-            Log.d("rjqtestevent", "TestBtn onClickListener")
+
+        liveDataTestPause.observe(this, Observer {
+            Log.d("testlivedata", it)
+        })
+        binding.testCustom.setOnClickListener {
+            startActivity(Intent(this, TranslucentActivity::class.java))
         }
-        binding.testBtn.setOnLongClickListener {
-            Toast.makeText(this, "testbtn longclick", Toast.LENGTH_SHORT).show()
-            Log.d("rjqtestevent", "TestBtn OnLongClickListener")
-            false
-        }
-        testReified<LongTextRecyclerViewActivity>()
+//        binding.testBtn.setOnClickListener {
+//            Toast.makeText(this, "testbtn click", Toast.LENGTH_SHORT).show()
+//            Log.d("rjqtestevent", "TestBtn onClickListener")
+//        }
+//        binding.testBtn.setOnLongClickListener {
+//            Toast.makeText(this, "testbtn longclick", Toast.LENGTH_SHORT).show()
+//            Log.d("rjqtestevent", "TestBtn OnLongClickListener")
+//            false
+//        }
+//        testReified<LongTextRecyclerViewActivity>()
+        mainHandler.postDelayed({
+//            binding.mirrorVeiw.setMirror(true)
+            binding.testBtn.requestLayout()
+        }, 3000)
+
+        // 会将大长图根据图片宽高和scaleType压缩,scaleType=centerCrop会裁剪掉图片多余部分将图片中间部分充满imageview,即加载出的的bitmap宽高=imageview宽高
+        // scaleType=fitCenter会将图片缩放充满imageview,以下例子bitmap.height==imageview高,bitmap.width<image宽
+        Glide.with(this).load("https://img1.doubanio.com/view/group_topic/l/public/p507070188.webp").listener(object : RequestListener<Drawable> {
+            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                return false
+            }
+
+            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                return false
+            }
+
+        }).into(binding.testCustom)
+
+        Glide.with(this).asDrawable().load("https://img1.doubanio.com/view/group_topic/l/public/p507070188.webp").into(object : SimpleTarget<Drawable>() {
+            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                // 拿到原始图片，没经过压缩,设置给ImageView会OOM，原图200M
+//                binding.testCustom.setImageDrawable(resource)
+            }
+        })
     }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    companion object {
+        val liveDataTestPause = MutableLiveData<String>()
+    }
+
     private val monitor = Object()
     private var k = 0
     private val monitor1 = Object()
@@ -331,4 +388,32 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             EventBus.getDefault().removeStickyEvent(stickyStringEvent)
         }
     }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        when (event!!.action) {
+            MotionEvent.ACTION_DOWN -> {
+                Log.d("rjqtestevent", "MainActivity onTouchEvent ACTION_DOWN")
+//                return true
+            }
+            MotionEvent.ACTION_MOVE -> {
+                Log.d("rjqtestevent", "MainActivity onTouchEvent ACTION_MOVE")
+//                return false
+            }
+            MotionEvent.ACTION_UP -> Log.d("rjqtestevent", "MainActivity onTouchEvent ACTION_UP")
+            MotionEvent.ACTION_CANCEL -> Log.d("rjqtestevent", "MainActivity onTouchEvent ACTION_CANCEL")
+        }
+        return false
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        when (ev!!.action) {
+            MotionEvent.ACTION_DOWN -> Log.d("rjqtestevent", "MainActivity dispatchTouchEvent ACTION_DOWN")
+            MotionEvent.ACTION_MOVE -> Log.d("rjqtestevent", "MainActivity dispatchTouchEvent ACTION_MOVE")
+            MotionEvent.ACTION_UP -> Log.d("rjqtestevent", "MainActivity dispatchTouchEvent ACTION_UP")
+            MotionEvent.ACTION_CANCEL -> Log.d("rjqtestevent", "MainActivity dispatchTouchEvent ACTION_CANCEL")
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+
 }

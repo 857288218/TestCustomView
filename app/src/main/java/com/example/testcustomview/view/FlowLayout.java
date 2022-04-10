@@ -1,7 +1,10 @@
 package com.example.testcustomview.view;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,6 +31,7 @@ public class FlowLayout extends ViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        Log.d("rjqinvalidate", "FlowLayout onMeasure");
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int measureWidth = MeasureSpec.getSize(widthMeasureSpec);
         int measureHeight = MeasureSpec.getSize(heightMeasureSpec);
@@ -63,6 +67,7 @@ public class FlowLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        Log.d("rjqinvalidate", "FlowLayout onLayout");
         int lineWidth = 0, lineHeight = 0;
         int top = 0, left = 0;
         for (int i=0; i<getChildCount(); i++) {
@@ -89,4 +94,11 @@ public class FlowLayout extends ViewGroup {
             left += childWidth;
         }
     }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        Log.d("rjqinvalidate", "FlowLayout onDraw");
+        super.onDraw(canvas);
+    }
+
 }

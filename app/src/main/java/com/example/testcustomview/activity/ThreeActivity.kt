@@ -24,7 +24,7 @@ class ThreeActivity : AppCompatActivity() {
         //在设置inSampleSizes时应该注意使得缩放后的图片尺寸(px)尽量>=相应的imageView大小
         //按上面注释使用inSampleSize压缩，肉眼不容易看出图片质量下降
         options.inJustDecodeBounds = false
-        options.inSampleSize = calSampleSize(options, 160, 160)
+        options.inSampleSize = calSampleSize(options, 500, 100)
         val bitmapSample = BitmapFactory.decodeResource(resources, R.drawable.ic_work_nangua, options)
         findViewById<ImageView>(R.id.iv_sample).setImageBitmap(bitmapSample)
 
@@ -53,7 +53,7 @@ class ThreeActivity : AppCompatActivity() {
         if (rawWidth > dstWidth || rawHeight > dstHeight) {
             val ratioHeight = rawHeight.toFloat() / dstHeight
             val ratioWidth = rawWidth.toFloat() / dstWidth
-            sampleSize = ratioHeight.coerceAtMost(ratioWidth).toInt()
+            sampleSize = ratioHeight.coerceAtLeast(ratioWidth).toInt()
         }
         return sampleSize
     }

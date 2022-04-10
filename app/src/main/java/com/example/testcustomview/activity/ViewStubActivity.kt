@@ -15,7 +15,7 @@ import com.example.testcustomview.R
 import com.example.testcustomview.fragment.TestFragment
 import com.example.testcustomview.fragment.TestViewPagerFragment
 import com.google.android.material.tabs.TabLayout
-import test.Child
+import bean.Child
 
 class ViewStubActivity : AppCompatActivity() {
 

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +24,7 @@ class LongTextRecyclerViewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLongTextRecyclerViewBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        leakActivity = this
+//        leakActivity = this
         binding = DataBindingUtil.setContentView(this, R.layout.activity_long_text_recycler_view)
         intent.getIntExtra("a", 0)
         binding.recyclerView.adapter = Adapter()
@@ -31,11 +32,26 @@ class LongTextRecyclerViewActivity : AppCompatActivity() {
 //            recyclerView?.scrollBy(0, 500)
 //            (binding.recyclerView.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(0, -300)
         }, 1000)
+        Log.d("rjqtesttryreturn", testTryFinally())
     }
 
     companion object {
         var leakActivity: Activity? = null
     }
+
+    private fun testTryFinally(): String {
+        var str = "a"
+        try {
+            str = "b"
+            Log.d("rjqtesttryreturn", "try")
+            return str
+        } finally {
+            str = "c"
+            Log.d("rjqtesttryreturn", "finally")
+//            return str
+        }
+    }
+
     class Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         private var curItemPos = -1

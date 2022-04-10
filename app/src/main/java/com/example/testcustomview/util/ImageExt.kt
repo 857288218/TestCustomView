@@ -1,4 +1,4 @@
-package com.example.testcustomview
+package com.example.testcustomview.util
 
 import android.content.*
 import android.graphics.Bitmap

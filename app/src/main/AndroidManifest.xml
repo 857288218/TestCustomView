@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.testcustomview">
 
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 网络状态权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,13 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestCustomView">
-        <activity android:name=".activity.ViewStubActivity"></activity>
+        <activity
+            android:theme="@style/TranslucentStyle"
+            android:name=".activity.TranslucentActivity"
+            android:exported="false" />
+        <activity android:name=".activity.ViewStubActivity" />
         <activity android:name=".activity.BindingAdapterPositionActivity" />
-        <activity android:name=".activity.LongTextRecyclerViewActivity"
+        <activity
+            android:name=".activity.LongTextRecyclerViewActivity"
             android:launchMode="singleTask" />
         <activity android:name=".activity.ThreeActivity" />
-        <activity android:name=".activity.TelescopeActivity"
-            android:process=":rjqtest"/>
+        <activity
+            android:name=".activity.TelescopeActivity"
+            android:process=":rjqtest" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

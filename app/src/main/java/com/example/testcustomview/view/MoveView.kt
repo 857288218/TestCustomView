@@ -1,6 +1,7 @@
 package com.example.testcustomview.view
 
 import android.content.Context
+import android.graphics.Canvas
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -49,14 +50,14 @@ class MoveView : View {
                         deltX = (parent as ViewGroup).measuredWidth - measuredWidth - v.translationX
                     }
                     if (v.translationX + deltX < 0) {
-                        deltX = - v.translationX
+                        deltX = -v.translationX
                     }
                     // fix y 保证view不滑出其parent
                     if (v.translationY + deltY > (parent as ViewGroup).measuredHeight - measuredHeight) {
                         deltY = (parent as ViewGroup).measuredHeight - measuredHeight - v.translationY
                     }
                     if (v.translationY + deltY < 0) {
-                        deltY = - v.translationY
+                        deltY = -v.translationY
                     }
 
                     v.translationX = v.translationX + deltX
@@ -76,4 +77,8 @@ class MoveView : View {
         }
     }
 
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+        Log.d("rjqinvalidate", "MoveView onDraw")
+    }
 }

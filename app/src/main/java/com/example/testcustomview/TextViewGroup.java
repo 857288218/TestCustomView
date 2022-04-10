@@ -1,6 +1,7 @@
 package com.example.testcustomview;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -64,11 +65,11 @@ public class TextViewGroup extends LinearLayout {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Log.d("rjqtestevent", "TextViewGroup onTouchEvent ACTION_DOWN");
-                return true;
+                return false;
             case MotionEvent.ACTION_MOVE:
                 Log.d("rjqtestevent", "TextViewGroup onTouchEvent ACTION_MOVE");
-                return false;
-//                break;
+//                return false;
+                break;
             case MotionEvent.ACTION_UP:
                 Log.d("rjqtestevent", "TextViewGroup onTouchEvent ACTION_UP");
                 break;
@@ -77,5 +78,29 @@ public class TextViewGroup extends LinearLayout {
                 break;
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        Log.d("rjqinvalidate", "TextViewGroup dispatchDraw");
+        super.dispatchDraw(canvas);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        Log.d("rjqinvalidate", "TextViewGroup onDraw");
+        super.onDraw(canvas);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        Log.d("rjqinvalidate", "TextViewGroup onMeasure");
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        Log.d("rjqinvalidate", "TextViewGroup onLayout");
+        super.onLayout(changed, left, top, right, bottom);
     }
 }

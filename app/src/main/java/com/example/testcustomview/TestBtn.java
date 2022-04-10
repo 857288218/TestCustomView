@@ -1,6 +1,7 @@
 package com.example.testcustomview;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -42,21 +43,39 @@ public class TestBtn extends AppCompatButton {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Log.d("rjqtestevent", "TestBtn onTouchEvent ACTION_DOWN");
-//                return true;
-                break;
+                return true;
+//                break;
             case MotionEvent.ACTION_MOVE:
                 Log.d("rjqtestevent", "TestBtn onTouchEvent ACTION_MOVE");
-//                return true;
-                break;
+                return false;
+//                break;
             case MotionEvent.ACTION_UP:
                 Log.d("rjqtestevent", "TestBtn onTouchEvent ACTION_UP");
-//                return true;
-                break;
+                return false;
+//                break;
             case MotionEvent.ACTION_CANCEL:
                 Log.d("rjqtestevent", "TestBtn onTouchEvent ACTION_CANCEL");
 //                return true;
                 break;
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        Log.d("rjqinvalidate", "TestBtn onDraw");
+        super.onDraw(canvas);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        Log.d("rjqinvalidate", "TestBtn onMeasure");
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        Log.d("rjqinvalidate", "TestBtn onLayout");
+        super.onLayout(changed, left, top, right, bottom);
     }
 }

@@ -1,4 +1,4 @@
-package test;
+package bean;
 
 import android.util.Log;
 
