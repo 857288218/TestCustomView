@@ -264,6 +264,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         synchronized(monitor) {
             monitor.notify()
             Thread.sleep(500)
+            // 一直打印0 ，因为notify后需要等该同步代码块执行结束才能释放锁继续执行monitor.wait()后代码
             Log.d("rjqmonitor", "$k")
         }
     }
