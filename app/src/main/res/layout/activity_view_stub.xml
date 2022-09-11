@@ -34,4 +34,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <com.example.testcustomview.view.ExpandableTextView
+        android:id="@+id/expand"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:collapseLines="3"
+        app:expandTipLabel="展开"
+        app:collapseTipLabel="收起"
+        app:tipPosition="align_right"
+        android:text="任俊清门司机电话活动回顾好地方好地方门司机电话活动回顾好地方好womendjdjhfuhfuhdufndfnjdnfjdjfndfjrnfjrjfnnrfjrfwomendjdjhfuhfuhdufndfnjdnfjdjfndfjjfhdjjhdkfjdfjhj"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,13 +9,19 @@ import event.StickyStringEvent
 import org.greenrobot.eventbus.EventBus
 
 class TelescopeActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_telescope)
+
         findViewById<TextView>(R.id.shimmer).setOnClickListener {
             startActivity(Intent(this, ThreeActivity::class.java))
         }
 
         EventBus.getDefault().postSticky(StickyStringEvent("sticky string msg"))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }
