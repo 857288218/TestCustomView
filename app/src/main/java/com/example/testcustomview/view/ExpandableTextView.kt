@@ -102,7 +102,6 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
                         //获取控件尺寸
                         if (width != 0) {
                             mTextTotalWidth = width - paddingLeft - paddingRight
-                            Log.d(TAG, "控件宽度：$mTextTotalWidth")
                             mMeasured = true
                             toggleText()
                         }
@@ -295,7 +294,6 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
             //#######1.获取折叠后的文本#######
             var lastLineStartIndex = staticLayout.getLineStart(mMaxLines - 1)
             var lastLineEndIndex = staticLayout.getLineEnd(mMaxLines - 1)
-            // 防止越界
             if (lastLineStartIndex < 0) {
                 lastLineStartIndex = 0
             }
@@ -312,7 +310,6 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
             if (mExpandDrawable != null) {
                 imgWidth = mExpandDrawable!!.intrinsicWidth
             }
-            //这里使用空格是为了确保最终拼接的长度不会超过整行宽度
             var expandedTextWidth = if (mPosition == ALIGN_RIGHT) {
                 paint.measureText("$ELLIPSE$TIP_EXPAND").toInt() + imgWidth
             } else {
@@ -340,7 +337,6 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
             if (mPosition == ALIGN_RIGHT) {
                 lastLineStartIndex = staticLayout.getLineStart(lineCount - 1)
                 lastLineEndIndex = staticLayout.getLineEnd(lineCount - 1)
-                // 防止越界
                 if (lastLineStartIndex < 0) {
                     lastLineStartIndex = 0
                 }
@@ -364,6 +360,17 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
                 if (lastLineWidth + expandedTextWidth > mTextTotalWidth) {
                     val stringBuilder = SpannableStringBuilder(text)
                     mExpandText = stringBuilder.append("\n")
+                } else {
+                    if (mPosition == ALIGN_RIGHT) {
+                        val param = mTvExpand.layoutParams as MarginLayoutParams
+                        if (mIsExpand) {
+                            // "收起"紧挨着文字显示在后面
+                            param.rightMargin = (mTextTotalWidth - lastLineWidth - expandedTextWidth).toInt()
+                        } else {
+                            param.rightMargin = 0
+                        }
+                        mTvExpand.layoutParams = param
+                    }
                 }
             }
             mExpandHeight = mTvContent.getStaticLayout(mExpandText, mTextTotalWidth).height
