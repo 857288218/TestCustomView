@@ -244,14 +244,11 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
             mTvExpand.text = tip_collapse
             toggleListener?.onToggle(true)
         } else {
-            mTvContent!!.maxLines = mMaxLines
-            mTvContent.text = mCollapseText
             if (!mCancelAnim) {
-                // todo(rjq) 收起动画mTvContent没生效
                 //收起动画
                 val anim = ValueAnimator.ofInt(mExpandHeight, mCollapseHeight).setDuration(200)
                 anim.addUpdateListener { animation ->
-                    val params = mTvContent.layoutParams
+                    val params = mTvContent!!.layoutParams
                     val h = (animation?.animatedValue as? Int) ?: 0
                     Log.d(TAG, "$h")
                     params.height = h
@@ -261,6 +258,9 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
                     mTvContent.layoutParams = params
                 }
                 anim.addListener(onEnd = {
+                    // maxLines和text需要动画结束后再设置，否则收起动画效果看不出来
+                    mTvContent!!.maxLines = mMaxLines
+                    mTvContent.text = mCollapseText
                     mTvExpand.visibility = VISIBLE
                 })
                 anim.start()
