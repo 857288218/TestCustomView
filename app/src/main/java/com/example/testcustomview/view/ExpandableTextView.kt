@@ -21,7 +21,7 @@ import com.example.testcustomview.R
 import com.example.testcustomview.util.getStaticLayout
 
 // 可展开折叠的文本控件
-class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = null) : RelativeLayout(context, attrs) {
+class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs) {
 
     private var tip_collapse: String? = "收起"
     private var TIP_EXPAND: String? = "展开"
