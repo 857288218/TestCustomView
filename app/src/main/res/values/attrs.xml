@@ -56,4 +56,11 @@
         <attr name="timePeriod" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="JaSwitch">
+        <attr name="android:layout_width"/>
+        <attr name="checked" format="boolean" />
+        <attr name="thumbWidth" format="dimension" />
+        <attr name="thumbStroke" format="dimension" />
+    </declare-styleable>
+
 </resources>

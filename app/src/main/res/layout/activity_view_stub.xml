@@ -47,11 +47,20 @@
         android:layout_height="wrap_content"/>
 
     <com.example.testcustomview.view.VideoLoadingView
+        android:id="@+id/video_loading_view"
         app:minProgressWidth="100dp"
         app:progressColor="#cccccc"
         app:layout_constraintTop_toBottomOf="@id/expand"
         android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
+
+    <com.example.testcustomview.view.JaSwitch
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/video_loading_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
