@@ -16,6 +16,7 @@ import android.view.View.OnClickListener
 import android.view.ViewTreeObserver
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.animation.addListener
 import com.example.testcustomview.R
 import com.example.testcustomview.util.getStaticLayout
 
@@ -199,7 +200,6 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
         mIsExpand = !mIsExpand
         val canCollapse = formatText(mOriginText)
         if (!canCollapse) {
-            //说明无需折叠
             mTvExpand.visibility = GONE
             mTvContent!!.text = mOriginText
             return
@@ -230,7 +230,11 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
                     }
                     mTvContent.layoutParams = params
                 }
+                anim.addListener(onEnd = {
+                    mTvExpand.visibility = VISIBLE
+                })
                 anim.start()
+                mTvExpand.visibility = GONE
             }
             if (mCollapseDrawable != null) {
                 mTvExpand.setCompoundDrawablesWithIntrinsicBounds(null, null, mCollapseDrawable, null)
@@ -238,9 +242,7 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
                 mTvExpand.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
             }
             mTvExpand.text = tip_collapse
-            if (toggleListener != null) {
-                toggleListener!!.onToggle(true)
-            }
+            toggleListener?.onToggle(true)
         } else {
             mTvContent!!.maxLines = mMaxLines
             mTvContent.text = mCollapseText
@@ -251,13 +253,18 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
                 anim.addUpdateListener { animation ->
                     val params = mTvContent.layoutParams
                     val h = (animation?.animatedValue as? Int) ?: 0
+                    Log.d(TAG, "$h")
                     params.height = h
                     if (h <= mCollapseHeight) {
                         params.height = LayoutParams.WRAP_CONTENT
                     }
                     mTvContent.layoutParams = params
                 }
+                anim.addListener(onEnd = {
+                    mTvExpand.visibility = VISIBLE
+                })
                 anim.start()
+                mTvExpand.visibility = GONE
             }
             if (mExpandDrawable != null) {
                 mTvExpand.setCompoundDrawablesWithIntrinsicBounds(null, null, mExpandDrawable, null)
@@ -265,11 +272,8 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
                 mTvExpand.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
             }
             mTvExpand.text = TIP_EXPAND
-            if (toggleListener != null) {
-                toggleListener!!.onToggle(false)
-            }
+            toggleListener?.onToggle(false)
         }
-        invalidate()
     }
 
     /**
@@ -361,16 +365,14 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
                     val stringBuilder = SpannableStringBuilder(text)
                     mExpandText = stringBuilder.append("\n")
                 } else {
-                    if (mPosition == ALIGN_RIGHT) {
-                        val param = mTvExpand.layoutParams as MarginLayoutParams
-                        if (mIsExpand) {
-                            // "收起"紧挨着文字显示在后面
-                            param.rightMargin = (mTextTotalWidth - lastLineWidth - expandedTextWidth).toInt()
-                        } else {
-                            param.rightMargin = 0
-                        }
-                        mTvExpand.layoutParams = param
+                    val param = mTvExpand.layoutParams as MarginLayoutParams
+                    if (mIsExpand) {
+                        // "收起"紧挨着文字显示在后面
+                        param.rightMargin = (mTextTotalWidth - lastLineWidth - expandedTextWidth).toInt()
+                    } else {
+                        param.rightMargin = 0
                     }
+                    mTvExpand.layoutParams = param
                 }
             }
             mExpandHeight = mTvContent.getStaticLayout(mExpandText, mTextTotalWidth).height
@@ -380,15 +382,14 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
 
     private fun ensureLastLineEndIndex(paint: TextPaint, lastLineStartIndex: Int, lastLineEndIndex: Int, imgWidth: Int, appd: StringBuilder): Int {
         var mLastLineEndIndex = lastLineEndIndex
-        val lastLineWidth: Float
         val originStr = mOriginText.toString()
-        lastLineWidth = paint.measureText(originStr.substring(lastLineStartIndex, mLastLineEndIndex) + "  " + ELLIPSE + "  " + TIP_EXPAND) + imgWidth
+        val lastLineWidth = paint.measureText(originStr.substring(lastLineStartIndex, mLastLineEndIndex) + "" + ELLIPSE + "" + TIP_EXPAND) + imgWidth
         if (lastLineWidth > mTextTotalWidth) {
             //再减掉一个字
             mLastLineEndIndex--
             //添加点占位
             val spaceWidth = paint.measureText(".").toInt()
-            val spaceCount = ((mTextTotalWidth - paint.measureText(originStr.substring(lastLineStartIndex, mLastLineEndIndex) + "  " + ELLIPSE + "  " + TIP_EXPAND) - imgWidth) / spaceWidth).toInt()
+            val spaceCount = ((mTextTotalWidth - paint.measureText(originStr.substring(lastLineStartIndex, mLastLineEndIndex) + "" + ELLIPSE + "" + TIP_EXPAND) - imgWidth) / spaceWidth).toInt()
             for (i in 0 until spaceCount) {
                 appd.append(".")
             }
@@ -415,7 +416,6 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet? = nu
     }
 
     init {
-        //获取属性
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ExpandableTextView)
         mOriginText = typedArray.getString(R.styleable.ExpandableTextView_android_text)
         mLineSpaceExtra = typedArray.getDimension(R.styleable.ExpandableTextView_android_lineSpacingExtra, 0f)
