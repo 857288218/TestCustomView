@@ -81,7 +81,7 @@ class VideoLoadingView @JvmOverloads constructor(context: Context, attrs: Attrib
         //将透明度转换为16进制
         val s = Integer.toHexString(currentColorValue)
         //拼接颜色字符串并转化为颜色值
-        val color = Color.parseColor("#" + s + mColor?.substring(1, mColor?.length ?: 1))
+        val color = Color.parseColor("#" + s + mColor?.substring(3, mColor?.length ?: 1))
         mPaint.color = color
         //使用canvas画进度条
         canvas.drawLine((mWidth / 2 - mProgressWidth / 2).toFloat(), (mHeight / 2).toFloat(), (mWidth / 2 + mProgressWidth / 2).toFloat(), (mHeight / 2).toFloat(), mPaint)

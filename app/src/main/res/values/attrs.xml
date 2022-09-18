@@ -46,7 +46,7 @@
 
     <declare-styleable name="VideoLoadingView">
         <!--进度条初始颜色-->
-        <attr name="progressColor" format="string" />
+        <attr name="progressColor" format="string|color" />
         <!--进度条最小宽度即初始宽度-->
         <attr name="minProgressWidth" format="dimension" />
         <!--view最小宽度-->
