@@ -41,17 +41,24 @@ class VideoLoadingView @JvmOverloads constructor(context: Context, attrs: Attrib
                 sendEmptyMessageDelayed(1, mTimePeriod)
             }
         }
-        mHandler.sendEmptyMessageDelayed(1, mTimePeriod)
+        if (VISIBLE == visibility) {
+            mHandler.sendEmptyMessageDelayed(1, mTimePeriod)
+        }
+    }
+
+    override fun onVisibilityChanged(changedView: View, visibility: Int) {
+        super.onVisibilityChanged(changedView, visibility)
+        if (visibility == VISIBLE) {
+            mHandler.sendEmptyMessageDelayed(1, mTimePeriod)
+        } else {
+            mHandler.removeMessages(1)
+        }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         mWidth = w
         mHeight = h
-        require(mWidth >= mProgressWidth) {
-            //如果宽度小于进度条的宽度
-            "the progressWidth must less than mWidth"
-        }
         mPaint.strokeWidth = mHeight.toFloat()
     }
 
@@ -60,7 +67,7 @@ class VideoLoadingView @JvmOverloads constructor(context: Context, attrs: Attrib
         //首先判断进度条的宽度是否大于view宽度
         if (mProgressWidth < mWidth) {
             //如果不大于，将进度条宽度增加10
-            mProgressWidth += 10 //注意执行此步骤是mProgressWidth值有可能大于view宽度
+            mProgressWidth += 20 //注意执行此步骤是mProgressWidth值有可能大于view宽度
         } else {
             //如果进度条宽度大于view宽度将进度条宽度设置为初始宽度
             mProgressWidth = mMinProgressWidth
