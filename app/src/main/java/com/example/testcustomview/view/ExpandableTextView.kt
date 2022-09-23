@@ -186,7 +186,7 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
     var text: CharSequence?
         get() = mOriginText
         set(text) {
-            //if (TextUtils.isEmpty(text)) return;
+            if (TextUtils.isEmpty(text)) return
             mIsExpand = !mIsExpand
             performedByUser = false
             initText(text)
