@@ -1,10 +1,15 @@
 package com.example.testcustomview.util
 
 import android.graphics.Rect
+import android.os.Build
+import android.text.Layout
+import android.text.StaticLayout
+import android.text.TextDirectionHeuristics
 import android.view.MotionEvent
 import android.view.TouchDelegate
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.coordinatorlayout.widget.ViewGroupUtils
 
 // 增大View点击区域
@@ -54,6 +59,38 @@ fun View.expand(dx: Int, dy: Int) {
         rect.inset(-dx, -dy)
         // 将子控件作为代理控件添加到 MultiTouchDelegate 中
         (parentView.touchDelegate as? MultiTouchDelegate)?.delegateViewMap?.put(this, rect)
+    }
+}
+
+fun TextView.getStaticLayout(text: CharSequence?, width: Int): StaticLayout {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val builder = StaticLayout.Builder.obtain(
+            text ?: getText(),
+            0, text?.length ?: getText().length, this.paint, width
+        )
+            .setAlignment(Layout.Alignment.ALIGN_NORMAL)
+            .setTextDirection(TextDirectionHeuristics.FIRSTSTRONG_LTR)
+            .setLineSpacing(this.lineSpacingExtra, this.lineSpacingMultiplier)
+            .setIncludePad(this.includeFontPadding)
+            .setBreakStrategy(this.breakStrategy)
+            .setHyphenationFrequency(this.hyphenationFrequency)
+            .setMaxLines(if (this.maxLines == -1) Integer.MAX_VALUE else this.maxLines)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder.setJustificationMode(this.justificationMode)
+        }
+        if (this.ellipsize != null && this.keyListener == null) {
+            builder.setEllipsize(this.ellipsize).setEllipsizedWidth(width)
+        }
+        builder.build()
+    } else {
+        return StaticLayout(
+            text ?: getText(),
+            0, text?.length ?: getText().length,
+            this.paint, width, Layout.Alignment.ALIGN_NORMAL,
+            this.lineSpacingMultiplier,
+            this.lineSpacingExtra, this.includeFontPadding, this.ellipsize,
+            width
+        )
     }
 }
 

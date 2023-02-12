@@ -25,7 +25,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.testcustomview.R
 import com.example.testcustomview.databinding.ActivityMainBinding
 import com.example.testcustomview.view.CharEvaluator
-import com.squareup.leakcanary.LeakCanary
 import event.StickyStringEvent
 import event.StringEvent
 import org.greenrobot.eventbus.EventBus
@@ -61,15 +60,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        LeakCanary.install(application)
+//        LeakCanary.install(application)
         // 一直向主线程发消息导致主线程无法执行IdleHandlers会造成内存泄漏，详见ActivityThread#handleResumeActivity;
         // 如果用2.0以下LeakCanary该情况下无法检测到内存泄漏 因为该版本内存泄漏检测在IdleHandler中完成
         val mainHandler = Handler(Looper.getMainLooper())
-        val runnable = object : Runnable {
-            override fun run() {
-                mainHandler.post(this)
-            }
-        }
+//        val runnable = object : Runnable {
+//            override fun run() {
+//                mainHandler.post(this)
+//            }
+//        }
 //        mainHandler.post(runnable)
         Looper.myQueue().addIdleHandler {
             Log.d("rjqadle", "my idlehandler run")
@@ -399,6 +398,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onStop() {
         super.onStop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // 测试onSaveInstanceState保存过多数据会抛异常 java.lang.RuntimeException: android.os.TransactionTooLargeException
+//        outState.putByteArray("test", ByteArray(1024 * 1024))
     }
 
     @Subscribe

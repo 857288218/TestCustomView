@@ -27,7 +27,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityRecordCompat;
 
-// 解决CoordinatorLayout和WebView滑动冲突，以及webview横向滑动和ViewPager等横滑View冲突
+// 解决CoordinatorLayout和WebView滑动冲突，以及WebView横向滑动和ViewPager等横滑View冲突
 public class NestedWebView extends WebView implements NestedScrollingChild2, NestedScrollingParent {
 
     private static final int INVALID_POINTER = -1;

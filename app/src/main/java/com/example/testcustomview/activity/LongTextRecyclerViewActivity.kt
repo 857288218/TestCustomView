@@ -8,8 +8,11 @@ import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testcustomview.R
 import com.example.testcustomview.Sentence
@@ -24,7 +27,11 @@ class LongTextRecyclerViewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLongTextRecyclerViewBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Profiler捕捉不到viewModel内存泄漏,LeakCanary能捕捉到
+        leakVM = viewModel
+        // leakActivity使用Profiler能捕捉到该activity泄漏，LeakCanary也能捕捉到
 //        leakActivity = this
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_long_text_recycler_view)
         intent.getIntExtra("a", 0)
         binding.recyclerView.adapter = Adapter()
@@ -35,8 +42,11 @@ class LongTextRecyclerViewActivity : AppCompatActivity() {
         Log.d("rjqtesttryreturn", testTryFinally())
     }
 
+    private val viewModel by viewModels<TestViewModel>()
+
     companion object {
-        var leakActivity: Activity? = null
+        lateinit var leakVM: ViewModel
+        lateinit var leakActivity: FragmentActivity
     }
 
     private fun testTryFinally(): String {
