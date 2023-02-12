@@ -409,8 +409,8 @@ public class NestedWebView extends WebView implements NestedScrollingChild2, Nes
         if (clampedY && !hasNestedScrollingParent(ViewCompat.TYPE_NON_TOUCH)) {
             mScroller.springBack(newScrollX, newScrollY, 0, 0, 0, getScrollRange());
         }
-        // WebView往下滑时,不执行onOverScrolled防止WebView分页加载完下一页后继续惯性下滑
-        // 不过这样会导致首次滑动CoordinatorLayout吸顶后不会再继续惯性滑动,如果webview没有分页加载逻辑或可接受加载完下一页还惯性滑动则放开此条件
+        // WebView往下滑fling时,不执行onOverScrolled防止WebView分页加载完下一页后继续惯性下滑
+        // 不过这样会导致首次fling滑动CoordinatorLayout吸顶后不会再继续惯性滑动,如果webview没有分页加载逻辑或可接受加载完下一页还惯性滑动则放开此条件
         if (deltaY < 0) {
             onOverScrolled(newScrollX, newScrollY, clampedX, clampedY);
         }

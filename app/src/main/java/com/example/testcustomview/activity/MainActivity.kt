@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.testcustomview.R
 import com.example.testcustomview.databinding.ActivityMainBinding
 import com.example.testcustomview.view.CharEvaluator
@@ -30,6 +32,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import bean.Child
+import bean.Dataclass
 import bean.Parent
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -38,6 +41,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.*
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import kotlinx.coroutines.launch
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -50,6 +54,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var isMenuOpen = false
     private val imgIdLive = MutableLiveData<Int>()
 
+    // 类/接口中定义的扩展函数只能在该类中调用或该类的扩展函数中调用
+    // 因为反编译后java代码为public final void you(String $this$you),调用需要该类的对象
+    fun String.you() {
+        length
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LeakCanary.install(application)
@@ -208,8 +217,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 //        testReified<LongTextRecyclerViewActivity>()
         mainHandler.postDelayed({
 //            binding.mirrorVeiw.setMirror(true)
-            binding.testBtn.requestLayout()
-        }, 3000)
+            binding.testBtn.invalidate()
+        }, 8000)
+
 
         // 会将大长图根据图片宽高和scaleType压缩,scaleType=centerCrop会裁剪掉图片多余部分将图片中间部分充满imageview,即加载出的的bitmap宽高=imageview宽高
         // scaleType=fitCenter会将图片缩放充满imageview,以下例子bitmap.height==imageview高,bitmap.width<image宽
@@ -230,6 +240,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 //                binding.testCustom.setImageDrawable(resource)
             }
         })
+
+        // lambda表达式测试,函数类型的对象 参数
+        tests(::s)
+        tests(fun(s: String, b: Boolean) {
+
+        })
+        tests { s, b ->
+
+        }
+    }
+
+    fun s(s: String, b: Boolean) {
+
+    }
+    fun tests(callback: (String, Boolean) -> Unit) {
+
     }
 
     override fun onPause() {

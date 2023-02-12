@@ -31,7 +31,7 @@ public class TextViewGroup extends LinearLayout {
             return false;
         } else if (ev.getAction() == MotionEvent.ACTION_MOVE) {
             Log.d("rjqtestevent", "TextViewGroup onInterceptTouchEvent ACTION_MOVE");
-            return true;
+            return false;
         } else if (ev.getAction() == MotionEvent.ACTION_UP) {
             Log.d("rjqtestevent", "TextViewGroup onInterceptTouchEvent ACTION_UP");
             return false;

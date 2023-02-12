@@ -89,14 +89,15 @@
 <!--                        app:layout_constraintRight_toRightOf="parent"-->
 <!--                        android:layout_height="50dp"/>-->
 
-            <!--        <com.example.testcustomview.view.CustomImageView-->
-            <!--            app:imgUrl="@{imgId}"-->
-            <!--            android:id="@+id/iv_binding"-->
-            <!--            app:layout_constraintTop_toBottomOf="@id/loading"-->
-            <!--            app:layout_constraintStart_toStartOf="parent"-->
-            <!--            app:layout_constraintEnd_toEndOf="parent"-->
-            <!--            android:layout_width="100dp"-->
-            <!--            android:layout_height="100dp"/>-->
+<!--                    <com.example.testcustomview.view.CustomImageView-->
+<!--                        app:imgUrl="@{imgId}"-->
+<!--                        android:id="@+id/iv_binding"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        android:layout_width="100dp"-->
+<!--                        android:layout_height="100dp"/>-->
 
             <Button
                 android:onClick="@{onClickListener}"
@@ -209,7 +210,6 @@
                 android:id="@+id/testViewGroup"
                 app:layout_constraintBottom_toTopOf="@id/flowLayout"
                 app:layout_constraintRight_toRightOf="parent"
-                android:background="@color/teal_200"
                 android:layout_width="100dp"
                 android:layout_height="100dp">
 

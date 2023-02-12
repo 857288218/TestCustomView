@@ -1,18 +1,19 @@
 package com.example.testcustomview.util
 
-import android.graphics.Rect
-import android.view.MotionEvent
-import android.view.TouchDelegate
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.coordinatorlayout.widget.ViewGroupUtils
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.example.testcustomview.activity.MainActivity
+
+fun MainActivity.meme() {
+    "ssss".you()
+}
 
 @BindingAdapter("imgUrl")
 fun ImageView.loadImage(imgResourceId: Int?) {
-    Glide.with(context).load(imgResourceId).into(this)
+    if (imgResourceId != null)
+        Glide.with(context).load(imgResourceId).into(this)
 }
 
 
