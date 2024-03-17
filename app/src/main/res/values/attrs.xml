@@ -57,10 +57,13 @@
     </declare-styleable>
 
     <declare-styleable name="JaSwitch">
-        <attr name="android:layout_width"/>
+        <attr name="android:layout_width" />
         <attr name="checked" format="boolean" />
         <attr name="thumbWidth" format="dimension" />
+        <attr name="thumbHeight" format="dimension" />
         <attr name="thumbStroke" format="dimension" />
+        <attr name="thumbRadius" format="dimension" />
+        <attr name="trackCornerRadius" format="dimension" />
     </declare-styleable>
 
 </resources>

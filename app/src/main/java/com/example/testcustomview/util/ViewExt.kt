@@ -63,35 +63,27 @@ fun View.expand(dx: Int, dy: Int) {
 }
 
 fun TextView.getStaticLayout(text: CharSequence?, width: Int): StaticLayout {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        val builder = StaticLayout.Builder.obtain(
-            text ?: getText(),
-            0, text?.length ?: getText().length, this.paint, width
-        )
-            .setAlignment(Layout.Alignment.ALIGN_NORMAL)
-            .setTextDirection(TextDirectionHeuristics.FIRSTSTRONG_LTR)
-            .setLineSpacing(this.lineSpacingExtra, this.lineSpacingMultiplier)
-            .setIncludePad(this.includeFontPadding)
-            .setBreakStrategy(this.breakStrategy)
-            .setHyphenationFrequency(this.hyphenationFrequency)
-            .setMaxLines(if (this.maxLines == -1) Integer.MAX_VALUE else this.maxLines)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder.setJustificationMode(this.justificationMode)
-        }
-        if (this.ellipsize != null && this.keyListener == null) {
-            builder.setEllipsize(this.ellipsize).setEllipsizedWidth(width)
-        }
-        builder.build()
-    } else {
-        return StaticLayout(
-            text ?: getText(),
-            0, text?.length ?: getText().length,
-            this.paint, width, Layout.Alignment.ALIGN_NORMAL,
-            this.lineSpacingMultiplier,
-            this.lineSpacingExtra, this.includeFontPadding, this.ellipsize,
-            width
-        )
+    val builder = StaticLayout.Builder.obtain(
+        text ?: getText(),
+        0,
+        text?.length ?: getText().length,
+        this.paint,
+        width
+    )
+        .setAlignment(Layout.Alignment.ALIGN_NORMAL)
+        .setTextDirection(TextDirectionHeuristics.FIRSTSTRONG_LTR)
+        .setLineSpacing(this.lineSpacingExtra, this.lineSpacingMultiplier)
+        .setIncludePad(this.includeFontPadding)
+        .setBreakStrategy(this.breakStrategy)
+        .setHyphenationFrequency(this.hyphenationFrequency)
+        .setMaxLines(if (this.maxLines == -1) Integer.MAX_VALUE else this.maxLines)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        builder.setJustificationMode(this.justificationMode)
     }
+    if (this.ellipsize != null && this.keyListener == null) {
+        builder.setEllipsize(this.ellipsize).setEllipsizedWidth(width)
+    }
+    return builder.build()
 }
 
 /**
