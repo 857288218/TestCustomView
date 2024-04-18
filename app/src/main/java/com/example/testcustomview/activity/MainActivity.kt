@@ -190,9 +190,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val uri = Uri.parse("douban://douban.com/group/:id/join")
         Log.d("rjquri", uri.pathSegments.toString())
 
-        findViewById<Button>(R.id.test_btn).setOnClickListener {
-            Toast.makeText(this, "test btn", Toast.LENGTH_SHORT).show()
-        }
+//        findViewById<Button>(R.id.test_btn).setOnClickListener {
+//            Toast.makeText(this, "test btn", Toast.LENGTH_SHORT).show()
+//        }
 
         val num = 100
         val str: String? = num as? String
@@ -202,7 +202,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Log.d("testlivedata", it)
         })
         binding.testCustom.setOnClickListener {
-            startActivity(Intent(this, TranslucentActivity::class.java))
+//            startActivity(Intent(this, TranslucentActivity::class.java))
+            binding.testViewGroup.invalidate()
         }
 //        binding.testBtn.setOnClickListener {
 //            Toast.makeText(this, "testbtn click", Toast.LENGTH_SHORT).show()

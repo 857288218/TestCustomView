@@ -86,6 +86,14 @@ fun TextView.getStaticLayout(text: CharSequence?, width: Int): StaticLayout {
     return builder.build()
 }
 
+fun View.setMargin(top: Float = 0f, left: Float = 0f, right: Float = 0f, bottom: Float = 0f) {
+    if (layoutParams is ViewGroup.MarginLayoutParams) {
+        val p = layoutParams as ViewGroup.MarginLayoutParams
+        p.setMargins(left.toInt(), top.toInt(), right.toInt(), bottom.toInt())
+        requestLayout()
+    }
+}
+
 /**
  * 获取view当前占据屏幕的百分比
  */

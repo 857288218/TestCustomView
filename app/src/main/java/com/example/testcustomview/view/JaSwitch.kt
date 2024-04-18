@@ -1,6 +1,8 @@
 package com.example.testcustomview.view
 
+import android.animation.ValueAnimator
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import com.example.testcustomview.R
 import com.example.testcustomview.util.dp2px
+import com.example.testcustomview.util.setMargin
 
 class JaSwitch : FrameLayout {
 
@@ -22,6 +25,7 @@ class JaSwitch : FrameLayout {
     private var thumbStroke = context.dp2px(6F)
     private var trackRadius = context.dp2px(2f)
     private var thumbRadius = context.dp2px(1f)
+    private var valueAnimator: ValueAnimator? = null
 
     private var fromUser = false
     var isCheckAble = true
@@ -62,7 +66,6 @@ class JaSwitch : FrameLayout {
         init(attrs)
     }
 
-    @SuppressLint("AvoidUsageApiCheck")
     private fun init(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.JaSwitch)
         val checked = typedArray.getBoolean(R.styleable.JaSwitch_checked, false)

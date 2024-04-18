@@ -4,9 +4,7 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.text.SpannableStringBuilder
-import android.text.TextPaint
-import android.text.TextUtils
+import android.text.*
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
@@ -17,7 +15,9 @@ import android.view.ViewTreeObserver
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.animation.addListener
+import androidx.core.content.ContextCompat
 import com.example.testcustomview.R
+import com.example.testcustomview.util.dp2px
 import com.example.testcustomview.util.getStaticLayout
 
 // 可展开折叠的文本控件
@@ -47,9 +47,9 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
     private var mCancelAnim = false
     private var mTextTotalWidth = 0
     private val signNameSpan = RadiusStrokeBackgroundSpan(
-        ContextCompat.getColor(context, R.color.purple_300),
+        ContextCompat.getColor(context, R.color.purple_200),
         context.dp2px(0.5f).toFloat(),
-        ContextCompat.getColor(context, R.color.purple_300),
+        ContextCompat.getColor(context, R.color.purple_200),
         sp2px(context, 8f).toFloat(),
         context.dp2px(1f).toFloat(),
         context.dp2px(4f),
@@ -185,7 +185,6 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
         }
     }
 
-    @SuppressLint("AvoidUsageApiCheck")
     fun setExpandableTextViewClick(click: OnClickListener?) {
         mTvContent?.setOnClickListener(click)
     }
@@ -536,7 +535,6 @@ class ExpandableTextView @JvmOverloads constructor(context: Context, attrs: Attr
         mTvContent.setTextColor(mContentColor)
         mTvContent.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContentTextSize.toFloat())
         mTvExpand.text = tipExpand
-        @SuppressLint("AvoidUsageApiCheck")
         if (mExpandable) {
             val clickListener = OnClickListener {
                 performedByUser = true
