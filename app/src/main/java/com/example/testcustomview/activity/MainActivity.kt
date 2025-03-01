@@ -52,6 +52,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var animationSet: AnimationSet = AnimationSet(true)
     private var isMenuOpen = false
     private val imgIdLive = MutableLiveData<Int>()
+    val function = fun(a: Int) {
+
+    }
 
     // 类/接口中定义的扩展函数只能在该类中调用或该类的扩展函数中调用
     // 因为反编译后java代码为public final void you(String $this$you),调用需要该类的对象
@@ -162,7 +165,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             animationSet.cancel()
             binding.tvScan.clearAnimation()
 
-            startActivity(Intent(this, TelescopeActivity::class.java))
+//            startActivity(Intent(this, TelescopeActivity::class.java))
+            startActivity(Intent(this, DragUpDownActivity::class.java))
         }
 
         Thread {
@@ -249,6 +253,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         tests { s, b ->
 
         }
+
+        Glide.with(this).load("https://img-blog.csdnimg.cn/20200401094829557.jpg").placeholder(R.drawable.ic_work_nangua).into(binding.ivAdjust)
     }
 
     fun s(s: String, b: Boolean) {
