@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 可滑动的头部 + 吸顶View：AppBarLayout继承于LinearLayout -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 可滑动的View -->
+        <TextView
+            android:background="@android:color/holo_green_light"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:text="可滑动头部"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"/>
+
+        <!-- 吸顶的View -->
+        <TextView
+            android:text="吸顶布局"
+            android:background="@android:color/holo_blue_bright"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            app:layout_scrollFlags="enterAlways"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- 可滑动的列表（ViewPager2 + RecyclerView等） -->
+    <androidx.core.widget.NestedScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_margin="10dp"
+                android:background="@android:color/holo_red_light"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <View
+                android:layout_margin="10dp"
+                android:background="@android:color/holo_red_light"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <View
+                android:layout_margin="10dp"
+                android:background="@android:color/holo_red_light"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <View
+                android:layout_margin="10dp"
+                android:background="@android:color/holo_red_light"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <View
+                android:layout_margin="10dp"
+                android:background="@android:color/holo_red_light"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <View
+                android:layout_margin="10dp"
+                android:background="@android:color/holo_red_light"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <View
+                android:layout_margin="10dp"
+                android:background="@android:color/holo_red_light"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <View
+                android:layout_margin="10dp"
+                android:background="@android:color/holo_red_light"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <View
+                android:layout_margin="10dp"
+                android:background="@android:color/holo_red_light"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <View
+                android:layout_margin="10dp"
+                android:background="@android:color/holo_red_light"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <View
+                android:layout_margin="10dp"
+                android:background="@android:color/holo_red_light"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <View
+                android:layout_margin="10dp"
+                android:background="@android:color/holo_red_light"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

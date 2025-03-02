@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--底层UI：地图或车模等-->
+    <!--底层UI固定位置：地图或车模等-->
     <View
         android:id="@+id/view_bottom"
         android:background="@android:color/holo_green_light"
@@ -14,14 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"/>
 
-    <!--滑动时的透明度层-->
+    <!--滑动时的透明度覆盖层-->
     <View
         android:id="@+id/view_alpha_mask"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/view_bottom"
         android:alpha="0"
         android:background="#ffffff"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/view_bottom" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="0dp"
@@ -32,7 +33,6 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
-            android:overScrollMode="never"
             app:behavior_hideable="false"
             android:orientation="vertical"
             app:behavior_peekHeight="337dp"
@@ -48,8 +48,9 @@
                 android:text="吸顶View"
                 android:gravity="center" />
 
-            <!-- 可滚动内容区域 -->
+            <!-- 可滚动的内容区域 -->
             <androidx.core.widget.NestedScrollView
+                android:overScrollMode="never"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

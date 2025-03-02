@@ -2,7 +2,6 @@ package com.example.testcustomview.activity
 
 import android.animation.*
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
@@ -13,15 +12,12 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AnimationSet
 import android.view.animation.BounceInterpolator
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.example.testcustomview.R
 import com.example.testcustomview.databinding.ActivityMainBinding
 import com.example.testcustomview.view.CharEvaluator
@@ -31,7 +27,6 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import bean.Child
-import bean.Dataclass
 import bean.Parent
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -40,7 +35,6 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.*
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
-import kotlinx.coroutines.launch
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -166,7 +160,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             binding.tvScan.clearAnimation()
 
 //            startActivity(Intent(this, TelescopeActivity::class.java))
-            startActivity(Intent(this, DragUpDownActivity::class.java))
+            startActivity(Intent(this, DragUpDownBottomSheetActivity::class.java))
+//            startActivity(Intent(this, CoordinatorAppBarFixTopActivity::class.java))
         }
 
         Thread {
