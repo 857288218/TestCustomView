@@ -20,11 +20,11 @@ class JaSwitch : FrameLayout {
     private var track: View? = null
 
     private var switchWidth = context.dp2px(60F)
-    private var thumbWidth = context.dp2px(24F)
-    private var thumbHeight = context.dp2px(8F)
-    private var thumbStroke = context.dp2px(6F)
-    private var trackRadius = context.dp2px(2f)
-    private var thumbRadius = context.dp2px(1f)
+    private var thumbWidth = context.dp2px(24F) // 滑块宽度
+    private var thumbHeight = context.dp2px(8F) // 滑块高度
+    private var thumbStroke = context.dp2px(6F) // 滑块距离滑道间距
+    private var thumbRadius = context.dp2px(1f) // 滑块圆角半径，当该值为滑块宽高的一半时，滑块为圆形
+    private var trackRadius = context.dp2px(2f) // 滑道圆角半径
     private var valueAnimator: ValueAnimator? = null
 
     private var fromUser = false
