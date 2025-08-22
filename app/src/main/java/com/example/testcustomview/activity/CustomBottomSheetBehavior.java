@@ -62,7 +62,8 @@ import java.util.Map;
  * BottomSheetDialogFragment use {@link ViewCompat#setAccessibilityPaneTitle(View, CharSequence)}.
  * <p>
  * 拷贝系统类 BottomSheetBehavior
- * 添加松手后根据位移距离回弹的逻辑: 添加expandGap, collapsedGap计算滑动百分比
+ * 添加松手后根据位移距离回弹的逻辑: 添加expandGap, collapsedGap计算滑动百分比。
+ * 支持peekHeight控件的顶部空白区域是否能响应上滑拖动事件使用GalaxyCarControlModule项目中FlymeCarControlBottomSheetBehavior类
  * 拷贝的系统类无法避免RestrictedApi
  */
 @SuppressLint("RestrictedApi")

@@ -11,7 +11,8 @@ import com.example.testcustomview.util.getDisplayHeight
 
 private const val BG_ALPHA = 0.95f
 
-// CoordinatorLayout + BottomSheetBehavior 实现：上滑脱手展开、下滑脱手收缩
+// CoordinatorLayout + BottomSheetBehavior 实现二段式：上滑脱手展开、下滑脱手收缩
+// 如果需要加刷新控件，参考GalaxyCarControlModule项目中car_fragment_flyme_main.xml
 class DragUpDownBottomSheetActivity : AppCompatActivity() {
 
     private lateinit var bottomSheetBehavior: CustomBottomSheetBehavior<View>
