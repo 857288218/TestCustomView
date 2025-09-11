@@ -14,6 +14,9 @@ class MyApplication : Application() {
         ByteDance().test()
         Thread.sleep(111)
 //        thread200()
+        // 输出this is a animal
+        val animal: Animal = Dog()
+        println(animal.info())
     }
 
     private fun thread200() {
@@ -31,3 +34,9 @@ class MyApplication : Application() {
 
     }
 }
+
+open class Animal
+class Dog : Animal()
+
+fun Animal.info() = "this is a animal"
+fun Dog.info() = "this is a dog"
