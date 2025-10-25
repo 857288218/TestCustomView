@@ -261,14 +261,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onPause() {
         super.onPause()
+        Log.d("MainActivity", "onPause")
     }
 
     override fun onResume() {
         super.onResume()
+        Log.d("MainActivity", "onResume")
     }
 
     override fun onStart() {
         super.onStart()
+        Log.d("MainActivity", "onStart")
     }
 
     companion object {
@@ -400,6 +403,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onStop() {
         super.onStop()
+        Log.d("MainActivity", "onStop")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

@@ -16,17 +16,13 @@ class MyApplication : Application() {
         super.onCreate()
         ByteDance().test()
 
-//        Thread.sleep(111)
-//        thread200()
-
         // 输出this is a animal
-        val animal: Animal = Dog()
-        println(animal.info())
-
-        Log.d("rjqtest", "判断两个数组中元素是否完全一致，不需要元素顺序相同,result=${XiaoPeng().testArraySameByHashMap()}")
-        XiaoPeng().testThreadOrderPrint()
-
-        Zuoyebang().mergeOrderArray()
+//        val animal: Animal = Dog()
+//        println(animal.info())
+//
+//        Log.d("rjqtest", "判断两个数组中元素是否完全一致，不需要元素顺序相同,result=${XiaoPeng().testArraySameByHashMap()}")
+//        XiaoPeng().testThreadOrderPrint()
+//        Zuoyebang().mergeOrderArray()
     }
 
     private fun thread200() {
